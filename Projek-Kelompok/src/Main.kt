@@ -1,4 +1,3 @@
-package src
 import Book
 import DVD
 import Magazine
