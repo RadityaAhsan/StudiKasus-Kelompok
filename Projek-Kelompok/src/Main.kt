@@ -29,6 +29,8 @@ fun main() {
     println("\n--- Item Dipinjam ---")
     LibraryManager.getBorrowedItems().forEach { it.display() }
 
-    println("\n--- Contoh penanganan error ---")
+    println("\n--- Contoh penanganan error ---"  )
     LibraryManager.borrowItem("ID-TIDAK-ADA", "M002", "2025-01-16")
+
+
 }
