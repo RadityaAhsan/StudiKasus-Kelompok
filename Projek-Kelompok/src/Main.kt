@@ -32,5 +32,23 @@ fun main() {
     println("\n--- Contoh penanganan error ---"  )
     LibraryManager.borrowItem("ID-TIDAK-ADA", "M002", "2025-01-16")
 
+    println("\n--- Skenario tambahan ---")
 
+    // Pinjam item yang tidak ada
+    runCatching {
+        val result = LibraryManager.borrowItem("D999", "M003", "2025-02-01")
+        if (!result) throw ItemNotFoundException("D999")
+    }.onFailure { println("ERROR: ${it.message}") }
+
+    // Pinjam item yang sudah dipinjam (M001 sudah pinjam P001)
+    runCatching {
+        val result = LibraryManager.borrowItem("P001", "M003", "2025-02-01")
+        if (!result) throw ItemAlreadyBorrowedException("P001")
+    }.onFailure { println("ERROR: ${it.message}") }
+
+    // Kembalikan item yang tidak sedang dipinjam
+    runCatching {
+        val result = LibraryManager.returnItem("M001")
+        if (!result) throw ItemNotBorrowedException("M001")
+    }.onFailure { println("ERROR: ${it.message}") }
 }
